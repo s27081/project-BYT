@@ -1,0 +1,109 @@
+
+.rootContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  background: linear-gradient(0deg, #735bb6 0%, #d298c6 100%);
+}
+
+.pinkButtonContainer {
+  width: 254px;
+  height: 50px;
+  position: absolute;
+  top: 630px;
+  left: 871px;
+  background: #c57ba0;
+  border-radius: 25px;
+}
+
+.startText,
+.endText {
+  position: absolute;
+  text-align: center;
+  color: #f8f6fb;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  word-wrap: break-word;
+}
+
+.startText {
+  top: 269px;
+  left: 835px;
+}
+
+.endText {
+  top: 724px;
+  left: 835px;
+}
+
+
+
+.mainText {
+  width: 498px;
+  position: absolute;
+  top: 418px;
+  left: 871px;
+  color: #f8f6fb;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  word-wrap: break-word;
+}
+
+.learnPythonText {
+  position: absolute;
+  top: 335px;
+  left: 871px;
+  color: #f8f6fb;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 44.8px;
+}
+
+.startNowText {
+  width: 208px;
+  height: 32px;
+  position: absolute;
+  top: 639px;
+  left: 894px;
+  text-align: center;
+  color: #f8f6fb;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  word-wrap: break-word;
+}
+
+.imageContainer {
+  width: 600px;
+  height: 600px;
+  position: absolute;
+  top: 223px;
+  left: 120px;
+}
+
+.imageBackground {
+  width: 100%;
+  height: 100%;
+  background: #d9d9d9;
+}
+
+.pythonImage {
+  width: 1048px;
+  height: 699px;
+  position: absolute;
+  top: -59px;
+  left: -229px;
+}
+
+.layoutImage {
+  width: 232px;
+  height: 203px;
+  position: absolute;
+  top: 662px;
+  left: 550px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
