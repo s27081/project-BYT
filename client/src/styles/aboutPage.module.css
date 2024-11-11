@@ -1,0 +1,61 @@
+.rootContainer {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    background: linear-gradient(0deg, #735bb6 0%, #d298c6 100%);
+    z-index: 1;
+}
+
+.title {
+  position: absolute;
+  top: 179px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #f8f6fb;
+  font-size: 96px;
+  font-family: sans-serif;
+  font-weight: 700;
+  line-height: 134.4px;
+  z-index: 2;
+}
+
+.userContainer {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 420px;
+  width: 100%;
+  z-index: 2;
+}
+
+.userInfo {
+  text-align: center;
+  color: #f8f6fb;
+  font-family: sans-serif;
+}
+
+.userName {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.userEmail {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 18.2px;
+}
+
+.userImage {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.layoutImage{
+    transform: translate3d(820px,640px,0px);
+
+}
