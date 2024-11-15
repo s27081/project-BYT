@@ -6,7 +6,7 @@ import { signupRouter } from "./routes/signup";
 import { signoutRouter } from "./routes/signout";
 import { signinRouter } from "./routes/signin";
 import { errorHandler } from "./middlewares/error-handler";
-
+import {testDatabaseConnection} from "./DB/database"
 
 
 const app = express();
@@ -20,7 +20,19 @@ app.all('*', (req, res) => {
     res.status(404).send({ errors: [{ message: 'Route not found' }] });
 });
 
+
 app.use(errorHandler);
+
+
+testDatabaseConnection()
+.then(() => {
+    console.log('Connected to the database');
+})
+.catch((err) => {
+    console.error('Failed to connect to the database:', err);
+    process.exit(1);
+});
+
 
 app.listen(3000,()=> {
     console.log("listen on port 3000");
