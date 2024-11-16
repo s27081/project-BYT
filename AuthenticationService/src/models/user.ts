@@ -1,15 +1,12 @@
 import {pool} from '../DB/database'
 import { Password } from '../authorization/password';
+import { BadRequestError } from '../errors/bad-request-error';
 interface User {
-    email: {
-        type: string;
-        required: true;
-    }
-    
+    email: string;
     password: string;
 }
 
-export const addUser = async(user: User): Promise<void> => {
+export const addUser = async(user: User): Promise<any> => {
     const {email, password} = user;
     const hashedPassword = await Password.hashPassword(password);
     try{
@@ -20,10 +17,9 @@ export const addUser = async(user: User): Promise<void> => {
     const values = [email, hashedPassword];
 
     const result = await pool.query(query, values);
-
   } catch (err) {
     console.error('Error adding user:', err);
-    throw err;
+    throw new BadRequestError("Bad Request");
   }
 };
 

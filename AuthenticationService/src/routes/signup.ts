@@ -4,6 +4,7 @@ import { RequestValidationError } from '../errors/request-validation-error';
 import { addUser} from '../models/user';
 import {pool} from '../DB/database'
 import { BadRequestError } from '../errors/bad-request-error';
+import jwt from 'jsonwebtoken';
 
 
 
@@ -28,7 +29,7 @@ router.post('/api/users/signup', [
         .withMessage('Must contain at least one lowercase letter')
         .matches(/[!@#$%^&*]/)
         .withMessage('Must contain at least one special character'),
-], (req: Request, res: Response) => {
+], async (req: Request, res: Response) => {
 
     const errors = validationResult(req);
 
@@ -37,7 +38,6 @@ router.post('/api/users/signup', [
     }
 
     const {email, password} = req.body;
-    const existingUser = findUserByEmail(email);
 
     async function findUserByEmail(email: string) {
         try {
@@ -46,20 +46,33 @@ router.post('/api/users/signup', [
           const result = await pool.query(query, [email]);
         
           if (result.rows.length > 0) {
-            console.log('User found:', result.rows[0]);
-            throw new BadRequestError("This Email Has been used");
+            console.log('User found:', result.rows[0].email);
+            throw new BadRequestError("User Exist");
           } else {
-            console.log('No user found with this email.');
             return null;
           }
         } catch (err) {
-          console.error('Error querying the database:', err);
-          throw err;
+          console.log(err)
     }
 
   }
-  const user = addUser({ email, password});
-  res.status(201).send(user);
+  const existingUser = await findUserByEmail(email);
+
+  if (existingUser !== null) {
+    console.log('Email in use');
+    throw new BadRequestError("This Email Has been used")
+  }
+  else{
+    const user = await addUser({ email, password});
+    //Generate JWT
+    const userJwt = jwt.sign({
+      email: email
+    }, String(process.env.JWTKEY));
+    req.session = {
+      jwt: userJwt
+    };
+    res.status(201).send("User Created");
+  }
 })
 
 export {router as signupRouter};
