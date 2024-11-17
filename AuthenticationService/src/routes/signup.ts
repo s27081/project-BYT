@@ -1,10 +1,11 @@
 import express, { Request, Response} from 'express';
 import { body, validationResult } from 'express-validator';
-import { RequestValidationError } from '../errors/request-validation-error';
-import { addUser} from '../models/user';
-import {pool} from '../DB/database'
-import { BadRequestError } from '../errors/bad-request-error';
 import jwt from 'jsonwebtoken';
+
+import { RequestValidationError } from '../errors/request-validation-error';
+import { addUser, findUserByEmail} from '../models/user';
+import { BadRequestError } from '../errors/bad-request-error';
+
 
 
 
@@ -37,27 +38,10 @@ router.post('/api/users/signup', [
         throw new RequestValidationError(errors.array());
     }
 
-    const {email, password} = req.body;
+  const {email, password} = req.body;
 
-    async function findUserByEmail(email: string) {
-        try {
-          const query = 'SELECT * FROM users WHERE email = $1;';
-        
-          const result = await pool.query(query, [email]);
-        
-          if (result.rows.length > 0) {
-            console.log('User found:', result.rows[0].email);
-            throw new BadRequestError("User Exist");
-          } else {
-            return null;
-          }
-        } catch (err) {
-          console.log(err)
-    }
-
-  }
   const existingUser = await findUserByEmail(email);
-
+    console.log(existingUser)
   if (existingUser !== null) {
     console.log('Email in use');
     throw new BadRequestError("This Email Has been used")
@@ -66,12 +50,15 @@ router.post('/api/users/signup', [
     const user = await addUser({ email, password});
     //Generate JWT
     const userJwt = jwt.sign({
-      email: email
+      id: user.id,
+      email: user.email
+
+
     }, String(process.env.JWTKEY));
     req.session = {
       jwt: userJwt
     };
-    res.status(201).send("User Created");
+    res.status(201).send(user);
   }
 })
 
