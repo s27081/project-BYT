@@ -1,0 +1,8 @@
+services:
+    fastapi:
+        image: fastapi:test
+        ports:
+            - 80:80
+        volumes:
+            - ./backend/FastAPI/app:/code/app
+
