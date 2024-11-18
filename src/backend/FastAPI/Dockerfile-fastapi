@@ -2,6 +2,7 @@ FROM python:3.9
 
 WORKDIR /code
 
+ENV PYTHONPATH=/code/app
 
 COPY ./requirements.txt /code/requirements.txt
 

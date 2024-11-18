@@ -1,8 +1,38 @@
 services:
     fastapi:
-        image: fastapi:test
+        build:
+            context: ../src/backend/FastAPI
+            dockerfile: Dockerfile-fastapi
+        restart: always
         ports:
             - 80:80
         volumes:
             - ./backend/FastAPI/app:/code/app
+        networks:
+            - app_network
 
+    db:
+        image: postgres:17
+        restart: always
+        #volumes:
+        #     - ./backend/db:/var/lib/postgresql/data
+        environment:
+            POSTGRES_PASSWORD: ${PSGR_PWD}
+        ports:
+            - 5432:5432
+        networks:
+            - app_network
+    
+    adminer:
+        image: adminer:latest
+        restart: always
+        depends_on: 
+            - db
+        ports:
+        - 8080:8080
+        networks:
+            - app_network
+
+networks:
+    app_network:
+        driver: bridge
