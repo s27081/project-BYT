@@ -20,7 +20,7 @@ Run frontend:
 TBD
 
 Run backend:
-1. Go to src/backend
+1. Go to src
 2. run docker compose --build -d
 
 
