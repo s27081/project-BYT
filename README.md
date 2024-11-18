@@ -2,7 +2,7 @@
 
 **PyLingo** - python learning platform
 
-## Dev
+## Development
 
 Prerequisites:
 - docker
