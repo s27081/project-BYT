@@ -1,6 +1,6 @@
 # BYT project
 
-** PyLingo ** - python learning platform
+**PyLingo** - python learning platform
 
 ## Dev
 
