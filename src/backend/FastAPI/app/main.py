@@ -14,6 +14,8 @@ load_dotenv()
 def read_root():
     return {"Hello": "BYT project test"}
 
+#Endpoint od wyciągnięcia konkretnego rekordu(item_id) z konkretnej tabeli(table)
+
 @app.get("/api/db/{table}/{item_id}")
 def read_table(table: str, item_id: int, db: SessionLocal = Depends(get_db)):
     table_class = TABLE_MAP.get(table)
