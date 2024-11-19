@@ -1,4 +1,4 @@
-import express, { json, Request , Response} from 'express';
+import express, { Request , Response} from 'express';
 import { body, validationResult } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
@@ -43,11 +43,8 @@ router.post('/api/users/signin',
     
       const existingUser = await findUserByEmail(email);
 
-
-      
       if (existingUser === null) {
-        console.log('Email in use');
-        throw new BadRequestError("This Email Has been used")
+        throw new BadRequestError("Povide correct credentials")
       }
         else{
             const user = {
@@ -73,8 +70,6 @@ router.post('/api/users/signin',
               res.status(200).send(user);
             }
         }
-
-    res.send("signin")
 })
 
 export {router as signinRouter}; 

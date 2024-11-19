@@ -3,8 +3,23 @@ import Image from "next/image";
 
 import styles from "../styles/NavBar.module.css"
 import pylingo from "../../public/pylingo.png"
+import { SignOut } from './Actions/SignOut';
+import { useRouter } from 'next/navigation';
+
 
 export default function NavBar() {
+    router = useRouter();
+
+
+    const SignOutHandler = async (event) => {
+
+        event.preventDefault();
+        const response = await SignOut();
+        console.log(response)
+        router.push("/")
+
+      };
+
     return (
         <div className={styles.navBarContainer}>
                 <div className={styles.menuItem} style={{transform: 'translate3d(55px, 100px, 0px)'}}>
@@ -33,7 +48,7 @@ export default function NavBar() {
                     </div>
                     <div className={styles.icons}>
                         <FaSignOutAlt/>
-                        <p>Sign Out</p>
+                        <p onClick={SignOutHandler}>Sign Out</p>
                     </div>
                 </div>
 

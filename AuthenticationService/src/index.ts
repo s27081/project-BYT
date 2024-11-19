@@ -9,6 +9,7 @@ import { signinRouter } from "./routes/signin";
 import { errorHandler } from "./middlewares/error-handler";
 import {testDatabaseConnection} from "./DB/database"
 import { NotFoundError } from "./errors/not-found-error";
+import cors from 'cors';
 
 
 const app = express();
@@ -19,6 +20,12 @@ app.use(cookieSession(
         secure: false
     }
 ))
+app.use(cors({
+    origin: `${process.env.DOMAINSERV}`,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  }));
 
 app.use(currentUserRouter);
 app.use(signupRouter);
@@ -44,6 +51,6 @@ testDatabaseConnection()
 
 
 
-app.listen(3000,()=> {
+app.listen(3001,()=> {
     console.log("listen on port 3000");
 })
