@@ -7,50 +7,43 @@ import { signupRouter } from "./routes/signup";
 import { signoutRouter } from "./routes/signout";
 import { signinRouter } from "./routes/signin";
 import { errorHandler } from "./middlewares/error-handler";
-import {testDatabaseConnection} from "./DB/database"
+import { testDatabaseConnection } from "./DB/database";
 import { NotFoundError } from "./errors/not-found-error";
-import cors from 'cors';
-
+import cors from "cors";
 
 const app = express();
 
 app.use(json());
-app.use(cookieSession(
-    {signed: false,
-        secure: false
-    }
-))
-app.use(cors({
+app.use(cookieSession({ signed: false, secure: false }));
+app.use(
+  cors({
     origin: `${process.env.DOMAINSERV}`,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
-  }));
+  })
+);
 
 app.use(currentUserRouter);
 app.use(signupRouter);
 app.use(signoutRouter);
 app.use(signinRouter);
 
-
-app.all('*', (req, res,next) => {
-    next(new NotFoundError());
+app.all("*", (req, res, next) => {
+  next(new NotFoundError());
 });
 
 app.use(errorHandler);
 
-
 testDatabaseConnection()
-.then(() => {
-    console.log('Connected to the database');
-})
-.catch((err) => {
-    console.error('Failed to connect to the database:', err);
+  .then(() => {
+    console.log("Connected to the database");
+  })
+  .catch((err) => {
+    console.error("Failed to connect to the database:", err);
     process.exit(1);
+  });
+
+app.listen(3001, () => {
+  console.log("listen on port 3000");
 });
-
-
-
-app.listen(3001,()=> {
-    console.log("listen on port 3000");
-})

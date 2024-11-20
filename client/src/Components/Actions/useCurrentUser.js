@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -9,13 +9,14 @@ const useCurrentUser = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const router = useRouter();
 
-
-
   useEffect(() => {
     const checkUserStatus = async () => {
       try {
-        const response = await axios.get(`${process.env.DOMAINSERV}/api/users/currentuser`, { withCredentials: true });
-        
+        const response = await axios.get(
+          `${process.env.DOMAINSERV}/api/users/currentuser`,
+          { withCredentials: true }
+        );
+
         if (response.data.currentUser) {
           setCurrentUser(response.data.currentUser);
         } else {
