@@ -3,3 +3,5 @@ package-lock.json
 .next
 dist/
 .env
+
+.env*

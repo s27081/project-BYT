@@ -14,7 +14,7 @@ import { SignOut } from "./Actions/SignOut";
 import { useRouter } from "next/navigation";
 
 export default function NavBar() {
-  router = useRouter();
+  const router = useRouter();
 
   const SignOutHandler = async (event) => {
     event.preventDefault();

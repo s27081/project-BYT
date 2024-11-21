@@ -2,14 +2,20 @@
 
 import axios from "axios";
 
+const url = process.env.NEXT_PUBLIC_SIGNUPURL;
+
 export async function SignUpForm(FormData) {
   const email = FormData.email;
   const password = FormData.password;
   const repeatedPassword = FormData.repeatedPassword;
 
   if (password === repeatedPassword) {
+    if (!url) {
+      throw new Error("SIGNUPURL is undefined.");
+    }
+    console.log(url);
     await axios.post(
-      `${process.env.DOMAINSERV}/api/users/signup`,
+      url,
       {
         email,
         password,

@@ -3,7 +3,7 @@ import { body, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 
 import { RequestValidationError } from "../errors/request-validation-error";
-import { BadRequestError } from "../errors/bad-request-error";
+
 import { Password } from "../authorization/passwordManager";
 import { findUserByEmail } from "../models/user";
 
@@ -43,7 +43,7 @@ router.post(
     const existingUser = await findUserByEmail(email);
 
     if (existingUser === null) {
-      throw new BadRequestError("Povide correct credentials");
+      res.status(400).send("Bad Request Error");
     } else {
       const user = {
         id: existingUser.id,
@@ -55,7 +55,7 @@ router.post(
         existingUser.password
       );
       if (!passwordMatch) {
-        throw new BadRequestError("Ivalid Credentials");
+        res.status(400).send("Bad Request Error");
       } else {
         //Generate JWT
         const userJwt = jwt.sign(

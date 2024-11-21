@@ -1,10 +1,24 @@
+"use client";
+
 import styles from "../styles/RootLayout.module.css";
 import Image from "next/image";
 import pylingo from "../../public/pylingo.png";
 import Header from "../Components/Header";
 import Link from "next/link";
+import useCurrentUser from "../Components/Actions/useCurrentUser";
+import { useRouter } from "next/navigation";
 
 export default function RootLayout() {
+  const { loading, currentUser } = useCurrentUser();
+
+  const router = useRouter();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (currentUser) {
+    router.push("/dashboard");
+  }
   return (
     <>
       <Header />

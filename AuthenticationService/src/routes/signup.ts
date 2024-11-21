@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 
 import { RequestValidationError } from "../errors/request-validation-error";
 import { addUser, findUserByEmail } from "../models/user";
-import { BadRequestError } from "../errors/bad-request-error";
 
 const router = express.Router();
 
@@ -40,10 +39,9 @@ router.post(
     const { email, password } = req.body;
 
     const existingUser = await findUserByEmail(email);
-    console.log(existingUser);
     if (existingUser !== null) {
       console.log("Email in use");
-      throw new BadRequestError("This Email Has been used");
+      res.status(400).send("Bad Request Error");
     } else {
       const user = await addUser({ email, password });
       //Generate JWT

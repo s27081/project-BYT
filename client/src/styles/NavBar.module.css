@@ -46,6 +46,7 @@
   background: #d298c6;
   width: 187px;
   border-radius: 35px 0px 0px 35px;
+  cursor: pointer;
 }
 
 .supportContainer {

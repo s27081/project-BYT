@@ -17,7 +17,7 @@ app.use(json());
 app.use(cookieSession({ signed: false, secure: false }));
 app.use(
   cors({
-    origin: `${process.env.DOMAINSERV}`,
+    origin: process.env.URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,

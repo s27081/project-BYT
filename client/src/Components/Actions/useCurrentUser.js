@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
+const url = process.env.NEXT_PUBLIC_CURRENTUSERURL;
+
 const useCurrentUser = () => {
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
@@ -12,10 +14,10 @@ const useCurrentUser = () => {
   useEffect(() => {
     const checkUserStatus = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.DOMAINSERV}/api/users/currentuser`,
-          { withCredentials: true }
-        );
+        if (!url) {
+          throw new Error("CURRENTUSERURL is undefined.");
+        }
+        const response = await axios.get(url, { withCredentials: true });
 
         if (response.data.currentUser) {
           setCurrentUser(response.data.currentUser);
