@@ -3,6 +3,7 @@
 import NavBar from "../../Components/NavBar";
 import useCurrentUser from "../../Components/Actions/useCurrentUser";
 import { useRouter } from "next/navigation";
+import Background from "../../Components/Background";
 
 export default function Dashboard() {
   const { loading, currentUser } = useCurrentUser();
@@ -16,5 +17,10 @@ export default function Dashboard() {
     router.push("/Auth/SignIn");
   }
 
-  return <NavBar />;
+  return (
+    <>
+      <Background />
+      <NavBar />
+    </>
+  );
 }

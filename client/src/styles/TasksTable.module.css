@@ -1,0 +1,33 @@
+.TaskContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #d298c6 0%, #c57ca1 100%);
+  box-shadow: 0px 15px 15px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  width: 13vw;
+  height: fit-content;
+}
+.taskCards {
+  width: 80%;
+
+  text-align: left;
+  padding-left: 20%;
+  border-bottom: white solid 1px;
+  margin: 0;
+}
+.taskCards a {
+  color: white;
+  text-decoration: none;
+}
+#labels {
+  display: flex;
+  color: white;
+  width: 100%;
+  height: 10vh;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  align-items: center;
+  border-bottom: solid white 1px;
+}

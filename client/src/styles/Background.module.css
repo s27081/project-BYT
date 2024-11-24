@@ -1,0 +1,65 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background: #f8f6fb;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gradientBackground {
+  width: 1920px;
+  height: 1080px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(0deg, #8971c1 0%, #dfaccf 100%);
+}
+
+.circlesContainer {
+  position: absolute;
+  width: 1704px;
+  height: 1396px;
+  top: -125px;
+  left: -259px;
+}
+
+.largeCircle {
+  width: 724px;
+  height: 724px;
+  position: absolute;
+  top: 672px;
+  left: 200px;
+  background: #735bb6;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.smallCircle {
+  width: 438px;
+  height: 438px;
+  position: absolute;
+  top: 0;
+  left: 330px;
+  background: #d298c6;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.svgContainer {
+  position: absolute;
+  top: 120px;
+  left: 1340px;
+}
+.pinkCircle {
+  width: 572px;
+  height: 572px;
+  position: absolute;
+  top: 56%;
+  left: 92%;
+  background: #dfaccf;
+  border-radius: 50%;
+  opacity: 0.5;
+}
