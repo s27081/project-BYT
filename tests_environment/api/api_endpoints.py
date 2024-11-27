@@ -2,7 +2,6 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from tests_environment.sandbox import sandbox
 
-
 app = FastAPI()
 
 

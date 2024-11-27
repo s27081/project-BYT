@@ -1,11 +1,11 @@
-from tests_environment.sandbox.sandbox import get_task_by_id
+from tests_environment.sandbox import sandbox
 
 
 def generate_dynamic_test_file(task_id, function_name, temp_module_name):
     """
     Generate a test file dynamically for the specified task based on test cases.
     """
-    task = get_task_by_id(task_id)
+    task = sandbox.get_task_by_id(task_id)
     if not task:
         raise Exception(f"Task with id {task_id} not found.")
 

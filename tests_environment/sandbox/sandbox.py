@@ -1,10 +1,9 @@
 import os
 import subprocess
-import importlib.util
 from RestrictedPython import compile_restricted, safe_globals, utility_builtins
 from RestrictedPython.Eval import default_guarded_getitem, default_guarded_getiter
 from tests_environment.tasks import tasks
-from tests_environment.tests.tests_generator import generate_dynamic_test_file
+from tests_environment.tests import generate_dynamic_test_file
 
 
 def get_task_by_id(task_id):
