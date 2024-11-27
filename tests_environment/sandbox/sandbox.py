@@ -1,30 +1,15 @@
-import os.path
+import os
 import subprocess
-import importlib
-
-from RestrictedPython import compile_restricted, safe_globals
+import importlib.util
+from RestrictedPython import compile_restricted, safe_globals, utility_builtins
+from RestrictedPython.Eval import default_guarded_getitem, default_guarded_getiter
 from tests_environment.tasks import tasks
+from tests_environment.tests.tests_generator import generate_dynamic_test_file
 
 
-
-def wrap_code_in_function(user_code: str, function_name: str):
-    """
-    Wrap user code in function, to make validating easier.
-    :param user_code: user code to wrap
-    :param function_name: function name to wrap
-    :return: user code wrapped in function
-    """
-
-    return f"""
-def {function_name}(*args, **kwargs):
-    {user_code}
-"""
-
-def get_task_by_id(task_id: int):
+def get_task_by_id(task_id):
     """
     Returns the task with the given task_id.
-    :param task_id: The ID of the task to fetch.
-    :return: The task dictionary.
     """
     for task in tasks:
         if task['task_id'] == task_id:
@@ -32,47 +17,50 @@ def get_task_by_id(task_id: int):
     return None
 
 
-def run_code_and_tests(user_code: str, task_id: int):
+def wrap_code_in_function(user_code, function_name):
     """
-        Execute user code in safe environment and test it.
-    :param user_code: user code to wrap
-    :param task_id: data for testing params
-    :return:tests result
+    Wrap user code in a function.
     """
+    return f"""
+def {function_name}(*args, **kwargs):
+    {user_code}
+"""
+
+def run_code_and_tests(user_code, task_id):
+    """
+    Execute user code and run tests dynamically.
+    """
+    temp_module_name = f"temp_module_{task_id}"
+    temp_module_path = f"{temp_module_name}.py"
+
     try:
         task = get_task_by_id(task_id)
         if not task:
             raise Exception(f"Task with id {task_id} not found.")
 
+        function_name = task['function_name']
+
         if "def" not in user_code:
-            user_code = wrap_code_in_function(user_code, task['function_name'])
+            user_code = wrap_code_in_function(user_code, function_name)
 
-        env_code = user_code.strip()
-
-        compile_env_code = compile_restricted(env_code, "<string>", "exec")
+        compiled_code = compile_restricted(user_code, filename="<string>", mode="exec")
 
         restricted_globals = safe_globals.copy()
+        restricted_globals.update({
+            "__builtins__": utility_builtins,
+            "_getitem_": default_guarded_getitem,
+            "_getiter_": default_guarded_getiter,
+        })
 
-        exec(compile_env_code, restricted_globals)
+        exec(compiled_code, restricted_globals)
 
-        user_function = restricted_globals.get(task['function_name'])
-        if not user_function:
-            raise Exception(f"Function {task['function_name']} is not defined")
-
-        test_file_path = f"tests/test_task{task['task_id']}.py"
-
-        if not os.path.exists(test_file_path):
-            raise Exception(f"There are no existing tests for this task")
-
-        temp_module_name = f"temp_module_{task_id}"
-        temp_module_path = f"{temp_module_name}.py"
+        if function_name not in restricted_globals:
+            raise Exception(f"Function {function_name} is not defined.")
 
         with open(temp_module_path, "w") as f:
             f.write(user_code)
 
-        temp_module = importlib.import_module(temp_module_name)
-
-        user_function = getattr(temp_module, task['function_name'])
+        test_file_path = generate_dynamic_test_file(task_id, function_name, temp_module_name)
 
         result = subprocess.run(
             ["pytest", test_file_path, "--maxfail=1", "--disable-warnings", "-q"],
@@ -81,7 +69,7 @@ def run_code_and_tests(user_code: str, task_id: int):
         )
 
         if result.returncode == 0:
-            return {"status": "succes", "message": "Test passed"}
+            return {"status": "success", "message": "All tests passed!"}
         else:
             return {"status": "failure", "message": result.stdout}
 
@@ -89,4 +77,8 @@ def run_code_and_tests(user_code: str, task_id: int):
         return {"status": "error", "message": str(e)}
 
     finally:
-        os.remove(temp_module_path)
+        if os.path.exists(temp_module_path):
+            os.remove(temp_module_path)
+        test_file_path = f"tests/test_task{task_id}.py"
+        if os.path.exists(test_file_path):
+            os.remove(test_file_path)
