@@ -2,7 +2,7 @@ import express from "express";
 import { json } from "body-parser";
 
 import { addGroupRouter } from "./routes/addGroup";
-import { joinGroupRouter } from "./routes/JoinGroup";
+import { joinGroupRouter } from "./routes/joinGroup";
 import { testDatabaseConnection } from "./DB/database";
 
 import cors from "cors";

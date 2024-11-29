@@ -37,9 +37,8 @@ INSERT INTO Tasks (id, name, description) VALUES
 
 
 CREATE TABLE Groups (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    description TEXT,
     admin_id INT NOT NULL,
     join_code VARCHAR(10) NOT NULL UNIQUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -47,7 +46,7 @@ CREATE TABLE Groups (
 );
 
 CREATE TABLE GroupMembers (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     group_id INT NOT NULL,
     user_id INT NOT NULL,
     role ENUM('admin', 'member') DEFAULT 'member',
@@ -57,7 +56,7 @@ CREATE TABLE GroupMembers (
 );
 
 CREATE TABLE CompletedTasks (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     task_id INT NOT NULL,
     completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
