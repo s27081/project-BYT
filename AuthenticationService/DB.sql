@@ -45,11 +45,13 @@ CREATE TABLE Groups (
     FOREIGN KEY (admin_id) REFERENCES Users(id) ON DELETE CASCADE
 );
 
+CREATE TYPE user_role AS ENUM ('admin', 'member');
+
 CREATE TABLE GroupMembers (
     id SERIAL PRIMARY KEY,
     group_id INT NOT NULL,
     user_id INT NOT NULL,
-    role ENUM('admin', 'member') DEFAULT 'member',
+    role user_role DEFAULT 'member',
     joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (group_id) REFERENCES Groups(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
