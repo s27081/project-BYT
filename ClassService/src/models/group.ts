@@ -54,6 +54,48 @@ export const addUserToGroup = async (
   }
 };
 
+export function findGroupByJoinCode(
+  join_code: string
+): Promise<{ id: number; join_code: string } | null> {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const query = "SELECT * FROM groups WHERE join_code = $1;";
+
+      const result = await pool.query(query, [join_code]);
+
+      if (result.rows.length > 0) {
+        resolve(result.rows[0]);
+      } else {
+        resolve(null);
+      }
+    } catch (err) {
+      reject(new Error("Error: " + err));
+    }
+  });
+}
+
+export const isUserInGroup = async (
+  group_id: string,
+  user_id: number
+): Promise<boolean> => {
+  const query = `
+    SELECT EXISTS (
+        SELECT 1
+        FROM GroupMembers
+        WHERE group_id = $1 AND user_id = $2
+    ) AS is_member;
+  `;
+  const values = [group_id, user_id];
+
+  try {
+    const result = await pool.query(query, values);
+    return result.rows[0].is_member;
+  } catch (error) {
+    console.error("Error checking user in group:", error);
+    throw new Error("Database query failed");
+  }
+};
+
 function generateRandomKey() {
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
