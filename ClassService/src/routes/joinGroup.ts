@@ -13,7 +13,6 @@ router.post("/api/group/joinGroup", async (req, res) => {
     const user_id = currentUser.id;
     const group = await findGroupByJoinCode(join_code);
 
-    console.log(group);
     if (group === null) {
       res.status(400).send({ error: "Bad Request Error" });
     } else {
