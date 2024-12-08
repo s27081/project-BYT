@@ -4,6 +4,7 @@ import { json } from "body-parser";
 import { addGroupRouter } from "./routes/addGroup";
 import { joinGroupRouter } from "./routes/joinGroup";
 import { testDatabaseConnection } from "./DB/database";
+import { showUserGroups } from "./routes/showYourGroups";
 
 import cors from "cors";
 
@@ -22,6 +23,7 @@ app.use(
 
 app.use(addGroupRouter);
 app.use(joinGroupRouter);
+app.use(showUserGroups);
 
 testDatabaseConnection()
   .then(() => {
