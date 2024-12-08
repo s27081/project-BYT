@@ -69,7 +69,7 @@ export default function NavBar() {
         >
           <FaChalkboardTeacher />
           <Link href="/dashboard/Classes">
-            <p>Classes</p>
+            <p>My Classes</p>
           </Link>
         </div>
       </div>
