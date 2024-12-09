@@ -6,6 +6,7 @@ export const getUserGroups = async (user_id: number): Promise<any[]> => {
           g.id AS group_id,
           g.name AS group_name,
           g.admin_id,
+          g.join_code,
           gm.role
       FROM 
           Groups g

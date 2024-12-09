@@ -23,7 +23,7 @@ export default function ExercisePage() {
     event.preventDefault();
     const response = await CreateGroupForm(Data);
     if (response.success) {
-      router.push("/dashboard");
+      router.push("/dashboard/Classes");
     } else {
       router.push("/dashboard");
       console.error("Logownie nie powiodło się:");
@@ -36,7 +36,7 @@ export default function ExercisePage() {
     event.preventDefault();
     const response = await JoinGroupForm(Data2);
     if (response.success) {
-      router.push("/dashboard");
+      router.push("/dashboard/Classes");
     } else {
       router.push("/dashboard");
       console.error("Logownie nie powiodło się:");

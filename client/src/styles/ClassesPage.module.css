@@ -82,3 +82,21 @@
   transition: ease 0.5s;
   color: aquamarine;
 }
+.GroupList {
+  display: flex;
+  flex-direction: column;
+}
+.GroupContainer {
+  display: flex;
+  flex-direction: row;
+  background: linear-gradient(90deg, #6f539361 30%, #985fa349 100%);
+  border-radius: 50px;
+  margin-bottom: 30px;
+}
+.GroupContainer p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  font-size: 20px;
+}
