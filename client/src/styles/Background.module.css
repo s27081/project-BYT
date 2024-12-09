@@ -10,8 +10,8 @@
 }
 
 .gradientBackground {
-  width: 1920px;
-  height: 1080px;
+  width: 100vw;
+  height: 100vh;
   position: absolute;
   top: 0;
   left: 0;
@@ -30,8 +30,8 @@
   width: 724px;
   height: 724px;
   position: absolute;
-  top: 672px;
-  left: 200px;
+  top: 35vw;
+  left: 10vw;
   background: #735bb6;
   border-radius: 50%;
   opacity: 0.5;
@@ -51,14 +51,14 @@
 .svgContainer {
   position: absolute;
   top: 120px;
-  left: 1340px;
+  left: 72vw;
 }
 .pinkCircle {
   width: 572px;
   height: 572px;
   position: absolute;
   top: 56%;
-  left: 92%;
+  left: 82vw;
   background: #dfaccf;
   border-radius: 50%;
   opacity: 0.5;

@@ -22,7 +22,6 @@ const useCurrentUser = () => {
         if (response.data.currentUser) {
           setCurrentUser(response.data.currentUser);
         } else {
-          router.push("/Auth/SignIn");
         }
       } catch (error) {
         console.error("Error fetching user status", error);
