@@ -4,17 +4,24 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaPlus } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import { usePathname, useParams } from "next/navigation";
 
-import NavBar from "../../../Components/NavBar";
-import useCurrentUser from "../../../Components/Actions/useCurrentUser";
-import Background from "../../../Components/Background";
-import classes from "../../../styles/ClassesPage.module.css";
-import { fetchUserGroups } from "../../../Components/Actions/UserGroups";
+import NavBar from "../../../../Components/NavBar";
+import useCurrentUser from "../../../../Components/Actions/useCurrentUser";
+import Background from "../../../../Components/Background";
+import classes from "../../../../styles/ClassesPage.module.css";
+import { fetchUserGroups } from "../../../../Components/Actions/UserGroups";
+import { fetchUsersInGroup } from "../../../../Components/Actions/UsersInGroup";
 
 export default function Dashboard() {
-  const { loading, currentUser } = useCurrentUser();
+  const pathname = usePathname();
   const router = useRouter();
+  const { slug: joinCode } = useParams();
+
   const [groups, setGroups] = useState([]);
+  const [users, setUsers] = useState([]);
+
+  const { loading, currentUser } = useCurrentUser();
 
   useEffect(() => {
     const getGroups = async () => {
@@ -27,6 +34,17 @@ export default function Dashboard() {
     };
     getGroups();
   }, [currentUser]);
+
+  useEffect(() => {
+    const getUsers = async () => {
+      if (joinCode) {
+        const data = await fetchUsersInGroup(joinCode);
+        setUsers(data.UserInGroup);
+      }
+    };
+
+    getUsers();
+  }, [joinCode]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -49,6 +67,11 @@ export default function Dashboard() {
                 <Link
                   href={`/dashboard/Classes/${group.join_code}`}
                   key={group.join_code}
+                  id={
+                    pathname === `/dashboard/Classes/${group.join_code}`
+                      ? classes.ChangedBackground
+                      : ""
+                  }
                   className={classes.GroupContainer}
                 >
                   <p>{group.group_name}</p>
@@ -68,6 +91,13 @@ export default function Dashboard() {
             <p id={classes.bordered}>Tasks Completed</p>
             <p>Action</p>
           </div>
+          {users &&
+            users.map((user) => (
+              <div key={user.user_id} className={classes.UserItem}>
+                <p>User ID: {user.user_id}</p>
+                <p>Role: {user.role}</p>
+              </div>
+            ))}
         </div>
       </div>
     </>

@@ -26,3 +26,29 @@ export const getUserGroups = async (user_id: number): Promise<any[]> => {
     throw new Error("Database query failed");
   }
 };
+
+export const getUsersInGroup = async (join_code: string): Promise<any[]> => {
+  const query = `
+      SELECT 
+        gm.user_id,
+        gm.role,
+        gm.joined_at,
+        g.name AS group_name,
+        g.admin_id
+      FROM 
+        GroupMembers gm
+      JOIN 
+      Groups g 
+        ON gm.group_id = g.id
+      WHERE 
+          g.join_code = $1;
+      `;
+  const values = [join_code];
+
+  try {
+    const result = await pool.query(query, values);
+    return result.rows;
+  } catch (error) {
+    throw new Error("Database query failed");
+  }
+};

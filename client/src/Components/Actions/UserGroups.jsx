@@ -17,7 +17,6 @@ export async function fetchUserGroups(currentUser) {
       withCredentials: true,
     }
   );
-  console.log(response.data);
   if (!response) {
     throw new Error("Failed to fetch groups");
   }

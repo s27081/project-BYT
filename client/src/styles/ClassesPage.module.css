@@ -100,3 +100,18 @@
   border: 0;
   font-size: 20px;
 }
+.GroupContainer {
+  text-decoration: none;
+}
+#ChangedBackground {
+  background: linear-gradient(90deg, #6f5393ea 10%, #985fa3d1 100%);
+}
+.UserItem {
+  color: white;
+  display: flex;
+  font-size: 24px;
+  width: 100%;
+  margin: 0;
+  border-bottom: 1px solid white;
+  gap: 120px;
+}
