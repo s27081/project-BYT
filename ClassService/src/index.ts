@@ -6,7 +6,7 @@ import { joinGroupRouter } from "./routes/joinGroup";
 import { testDatabaseConnection } from "./DB/database";
 import { showUserGroups } from "./routes/showYourGroups";
 import { showUsersInGroup } from "./routes/showUsersInGroup";
-
+import { deleteUserFromGroup } from "./routes/deleteUserFromGroup";
 import cors from "cors";
 
 const app = express();
@@ -26,6 +26,7 @@ app.use(addGroupRouter);
 app.use(joinGroupRouter);
 app.use(showUserGroups);
 app.use(showUsersInGroup);
+app.use(deleteUserFromGroup);
 
 testDatabaseConnection()
   .then(() => {
