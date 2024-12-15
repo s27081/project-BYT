@@ -2,3 +2,32 @@
   display: grid;
   grid-template-columns: 15fr 85fr;
 }
+.description {
+  font-size: 32px;
+  color: black;
+  position: relative;
+  width: 30%;
+  padding: 30px;
+  padding-top: 10px;
+}
+.compiler {
+  transform: translateY(40px);
+  border: 10px solid transparent;
+  border-radius: 25px;
+  background: linear-gradient(32deg, #805fdb 0%, #d54fba 100%);
+}
+.SubmitButton {
+  width: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #c57ba0;
+  border-radius: 25px;
+  color: #f8f6fb;
+  font-size: 20px;
+  transform: translateY(10px);
+}
+.SubmitButton:hover {
+  color: black;
+  transition: 0.5s ease;
+}
