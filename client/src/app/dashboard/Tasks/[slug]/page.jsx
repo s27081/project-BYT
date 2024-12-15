@@ -11,17 +11,16 @@ import TasksNavBar from "../../../../Components/TasksNavBar";
 
 export default function ExercisePage({ params }) {
   const { slug } = use(params);
-
+  const [code, setCode] = useState("");
+  const [output, setOutput] = useState("");
   const filteredTasks = taskList.filter(
     (task) => String(task.id) === String(slug)
   );
+
   const slugNumber = parseInt(slug, 10);
   if (isNaN(slugNumber) || slugNumber <= 0 || slugNumber >= 21) {
     throw new Error("Page Not Fund");
   }
-
-  const [code, setCode] = useState("");
-  const [output, setOutput] = useState("");
 
   const runCode = async () => {
     console.log(code);
@@ -32,24 +31,12 @@ export default function ExercisePage({ params }) {
       <Background />
       <div className={styles.TaskContainer}>
         <TasksNavBar slug={slug} />
-        <div
-          style={{
-            height: "80vh",
-            width: "170vh",
-            display: "flex",
-            flexDirection: "row",
-          }}
-        >
+        <div className={styles.flexContainer}>
           <div className={styles.description}>
             <h1>Task: {slug}</h1>
             <p>{filteredTasks[0].description}</p>
           </div>
-          <div
-            style={{
-              flex: 1,
-            }}
-            className={styles.compiler}
-          >
+          <div className={styles.compiler}>
             <Editor
               height="100%"
               width="100%"
@@ -64,21 +51,10 @@ export default function ExercisePage({ params }) {
                 automaticLayout: true,
               }}
             />
-            <button
-              onClick={runCode}
-              className={styles.SubmitButton}
-              style={{ marginTop: "10px", padding: "10px 20px" }}
-            >
+            <button onClick={runCode} className={styles.SubmitButton}>
               Submit Code
             </button>
-            <div
-              style={{
-                marginTop: "20px",
-                padding: "10px",
-                backgroundColor: "#1e1e1e",
-                color: "#ffffff",
-              }}
-            >
+            <div className={styles.outputContainer}>
               <h3>Output:</h3>
               <pre>{output}</pre>
             </div>

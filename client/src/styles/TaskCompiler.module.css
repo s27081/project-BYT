@@ -15,6 +15,7 @@
   border: 10px solid transparent;
   border-radius: 25px;
   background: linear-gradient(32deg, #805fdb 0%, #d54fba 100%);
+  flex: 1;
 }
 .SubmitButton {
   width: 180px;
@@ -26,8 +27,22 @@
   color: #f8f6fb;
   font-size: 20px;
   transform: translateY(10px);
+  margin-top: 10px;
+  padding: 10px 20px;
 }
 .SubmitButton:hover {
   color: black;
   transition: 0.5s ease;
+}
+.outputContainer {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+.flexContainer {
+  height: 80vh;
+  width: 170vh;
+  display: flex;
+  flex-direction: row;
 }
