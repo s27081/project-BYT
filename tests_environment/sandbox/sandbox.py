@@ -4,6 +4,7 @@ from RestrictedPython import compile_restricted, safe_globals, utility_builtins
 from RestrictedPython.Eval import default_guarded_getitem, default_guarded_getiter
 from tests_environment.tasks import tasks
 from tests_environment.tests import generate_dynamic_test_file
+from tests_environment.sandbox.error_parser import parse_failure_message
 
 
 def get_task_by_id(task_id):
@@ -58,9 +59,6 @@ def run_code_and_tests(user_code, task_id):
         if function_name not in restricted_globals:
             raise Exception(f"Function {function_name} is not defined.")
 
-        module_directory = os.getcwd()
-        temp_module_path = os.path.join(module_directory, f"{temp_module_name}.py")
-
         with open(temp_module_path, "w") as f:
             f.write(user_code)
 
@@ -75,7 +73,8 @@ def run_code_and_tests(user_code, task_id):
         if result.returncode == 0:
             return {"status": "success", "message": "All tests passed!"}
         else:
-            return {"status": "failure", "message": result.stdout}
+            error_message = parse_failure_message(result.stdout)
+            return {"status": "failure", "message": error_message}
 
     except Exception as e:
         return {"status": "error", "message": str(e)}
