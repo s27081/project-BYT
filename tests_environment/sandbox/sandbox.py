@@ -11,7 +11,7 @@ def get_task_by_id(task_id):
     Returns the task with the given task_id.
     """
     for task in tasks:
-        if task['task_id'] == task_id:
+        if task.get('task_id') == task_id:
             return task
     return None
 
