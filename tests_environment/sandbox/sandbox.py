@@ -11,6 +11,7 @@ def get_task_by_id(task_id):
     Returns the task with the given task_id.
     """
     for task in tasks:
+        print("checking: ", task_id)
         if task.get('task_id') == task_id:
             return task
     return None
@@ -24,6 +25,7 @@ def wrap_code_in_function(user_code, function_name):
 def {function_name}(*args, **kwargs):
     {user_code}
 """
+
 
 def run_code_and_tests(user_code, task_id):
     """
@@ -55,6 +57,9 @@ def run_code_and_tests(user_code, task_id):
 
         if function_name not in restricted_globals:
             raise Exception(f"Function {function_name} is not defined.")
+
+        module_directory = os.getcwd()
+        temp_module_path = os.path.join(module_directory, f"{temp_module_name}.py")
 
         with open(temp_module_path, "w") as f:
             f.write(user_code)

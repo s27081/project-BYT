@@ -1,3 +1,5 @@
+import sys
+import os
 from tests_environment.sandbox import sandbox
 
 
@@ -12,7 +14,18 @@ def generate_dynamic_test_file(task_id, function_name, temp_module_name):
     test_cases = task['test_cases']
     test_file_path = f"tests/test_task{task_id}.py"
 
-    test_code = f"import pytest\nfrom {temp_module_name} import {function_name}\n\n"
+    os.makedirs(os.path.dirname(test_file_path), exist_ok=True)
+
+    module_directory = os.getcwd()
+    sys.path.append(r'{module_directory}')
+
+    test_code = f"""
+import sys
+sys.path.append(r'{module_directory}')  # Ensure the correct module path
+from {temp_module_name} import {function_name}
+
+import pytest
+"""
 
     for i, case in enumerate(test_cases):
         test_input = ", ".join(map(str, case['input']))
