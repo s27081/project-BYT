@@ -28,6 +28,34 @@ export const addUser = async (
     throw new BadRequestError("Bad Request");
   }
 };
+
+export const updateUser = async (
+  id: number,
+  email: string,
+  password: string
+): Promise<{ id: number; email: string }> => {
+  const hashedPassword = await Password.hashPassword(password);
+  try {
+    const query = `
+        UPDATE Users
+        SET 
+            email = $1, 
+            password = $2
+        WHERE 
+            id = $3
+        RETURNING id, email;
+    `;
+    const values = [email, hashedPassword, id];
+
+    const result = await pool.query(query, values);
+
+    return await result.rows[0];
+  } catch (err) {
+    console.error("Error adding user:", err);
+    throw new BadRequestError("Bad Request");
+  }
+};
+
 export function findUserByEmail(
   email: string
 ): Promise<{ id: number; email: string; password: string } | null> {

@@ -65,3 +65,12 @@ CREATE TABLE CompletedTasks (
     FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE,
     FOREIGN KEY (task_id) REFERENCES Tasks(id) ON DELETE CASCADE
 );
+
+
+CREATE TABLE Students (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES Users(id) ON DELETE CASCADE,
+    name VARCHAR(50),
+    surname VARCHAR(50),
+    class VARCHAR(10)
+);

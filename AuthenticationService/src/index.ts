@@ -6,6 +6,7 @@ import { currentUserRouter } from "./routes/currentUser";
 import { signupRouter } from "./routes/signup";
 import { signoutRouter } from "./routes/signout";
 import { signinRouter } from "./routes/signin";
+import { changePasswordRouter } from "./routes/changePassword";
 import { errorHandler } from "./middlewares/error-handler";
 import { testDatabaseConnection } from "./DB/database";
 import { NotFoundError } from "./errors/not-found-error";
@@ -28,6 +29,7 @@ app.use(currentUserRouter);
 app.use(signupRouter);
 app.use(signoutRouter);
 app.use(signinRouter);
+app.use(changePasswordRouter);
 
 app.all("*", (req, res, next) => {
   next(new NotFoundError());
