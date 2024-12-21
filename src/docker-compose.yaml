@@ -3,6 +3,8 @@ services:
         build:
             context: ../src/backend/FastAPI
             dockerfile: Dockerfile-fastapi
+        environment:
+            DATABASE_URL: postgresql://postgres:${POSTGRES_PWD}@db:5432/appDB
         restart: always
         ports:
             - 80:80
@@ -18,6 +20,8 @@ services:
         #     - postgres-volume/var/lib/postgresql/data
         environment:
             POSTGRES_PASSWORD: ${POSTGRES_PWD}
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_BD: ${POSTGRES_DB}
         ports:
             - 5432:5432
         networks:
@@ -32,6 +36,45 @@ services:
         - 8080:8080
         networks:
             - app_network
+
+    client:
+        build:
+            context: ../src/frontend/client
+            dockerfile: Dockerfile-client
+        environment:
+            NEXT_PUBLIC_SIGNINURL: ${NEXT_PUBLIC_SIGNINURL}
+            NEXT_PUBLIC_SIGNUPURL: ${NEXT_PUBLIC_SIGNUPURL}
+            NEXT_PUBLIC_CURRENTUSERURL: ${NEXT_PUBLIC_CURRENTUSERURL}
+        restart: always
+        ports:
+            - 3000:3000
+        volumes:
+            - ./frontend/client:/client
+            - /client/node_modules
+        networks:
+            - app_network
+
+    auth:
+        build:
+            context: ../src/frontend/AuthenticationService
+            dockerfile: Dockerfile-auth
+        environment:
+            URL: ${URL}
+            DBHOST: ${DBHOST}
+            DBPORT: ${DBPORT}
+            DBUSER: ${DBUSER}
+            DBPASSWORD: ${DBPASSWORD}
+            DBDATABASE: ${DBDATABASE}
+        restart: always
+        depends_on: 
+            - db
+        ports:
+            - 3001:3001
+        volumes:
+            - ./frontend/AuthenticationService:/AuthenticationService
+        networks:
+            - app_network
+
 
 networks:
     app_network:
