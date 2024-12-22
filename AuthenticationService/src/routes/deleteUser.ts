@@ -5,7 +5,8 @@ const router = express.Router();
 
 router.delete("/api/users/deleteUser", async (req: Request, res: Response) => {
   try {
-    const { currentUser } = req.body;
+    const currentUser = req.body;
+    console.log(currentUser);
     const email = currentUser.email;
     if (!email) {
       res.status(400).json({ error: "The user does not exist" });

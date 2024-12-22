@@ -105,7 +105,6 @@ export default function Dashboard() {
                       const group = groups.find(
                         (g) => g.join_code === joinCode
                       );
-                      console.log(group.group_id);
                       if (!group) {
                         alert("Group not found");
                         return;

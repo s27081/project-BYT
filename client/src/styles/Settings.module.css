@@ -11,7 +11,8 @@
   align-items: center;
 }
 .SettingsBox p,
-#SubmitButton {
+#SubmitButton,
+.delButton {
   font-size: 46px;
   background-color: rgba(255, 255, 255, 0.338);
   justify-content: start;
@@ -25,7 +26,8 @@
   color: black;
   text-decoration: none;
 }
-.SettingsBox a:hover {
+.SettingsBox a:hover,
+.delButton:hover {
   color: aqua;
   transition: 0.5s ease;
 }
@@ -52,4 +54,12 @@
 .SettingsBox form p {
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+.delButton {
+  justify-content: center;
+}
+#center {
+  display: flex;
+  justify-content: center;
 }

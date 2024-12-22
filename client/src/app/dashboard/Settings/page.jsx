@@ -5,9 +5,12 @@ import Link from "next/link";
 import Background from "../../../Components/Background";
 import NavBar from "../../../Components/NavBar";
 import styles from "../../../styles/Settings.module.css";
-import { useRouter } from "next/navigation";
+
 import useCurrentUser from "../../../Components/Actions/useCurrentUser";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { deleteUser } from "../../../Components/Actions/deleteUser";
+
 export default function SettingsPage() {
   const { loading, currentUser } = useCurrentUser();
 
@@ -17,6 +20,19 @@ export default function SettingsPage() {
 
   const Data = { studentClass, studentName, studentSurname, currentUser };
   const router = useRouter();
+
+  const deleteHandler = async () => {
+    if (confirm("Are you sure you want to remove your Account?")) {
+      deleteUser(currentUser).then((success) => {
+        if (success) {
+          alert("User removed successfully");
+          router.push("/");
+        } else {
+          alert("Failed to remove user");
+        }
+      });
+    }
+  };
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -95,10 +111,12 @@ export default function SettingsPage() {
             </button>
           </form>
           <Link href="/Auth/ChangePassword">
-            <p>CHANGE PASSWORD</p>
+            <p id={styles.center}>CHANGE PASSWORD</p>
           </Link>
 
-          <p>DELETE ACCOUNT</p>
+          <button className={styles.delButton} onClick={deleteHandler}>
+            DELETE ACCOUNT
+          </button>
         </div>
       </div>
     </>
