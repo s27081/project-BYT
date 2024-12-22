@@ -75,3 +75,17 @@ export function findUserByEmail(
     }
   });
 }
+
+export const deleteUserByEmail = async (email: string): Promise<void> => {
+  const query = `
+  DELETE FROM users
+  WHERE email = $1;
+`;
+  const values = [email];
+
+  try {
+    await pool.query(query, values);
+  } catch (error) {
+    throw new Error("Database query failed");
+  }
+};
