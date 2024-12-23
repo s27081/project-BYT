@@ -43,7 +43,6 @@ router.post(
     if (!errors.isEmpty()) {
       return next(new RequestValidationError(errors.array()));
     }
-
     const { oldPassword, password, currentUser } = req.body;
 
     const existingUser = await findUserByEmail(currentUser.email);

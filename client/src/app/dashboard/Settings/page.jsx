@@ -10,6 +10,7 @@ import useCurrentUser from "../../../Components/Actions/useCurrentUser";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { deleteUser } from "../../../Components/Actions/deleteUser";
+import Modal from "../../../Components/ChangePasswordModal";
 
 export default function SettingsPage() {
   const { loading, currentUser } = useCurrentUser();
@@ -17,9 +18,18 @@ export default function SettingsPage() {
   const [studentClass, setStudentClass] = useState("");
   const [studentName, setStudentName] = useState("");
   const [studentSurname, setStudentSurname] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const Data = { studentClass, studentName, studentSurname, currentUser };
   const router = useRouter();
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const deleteHandler = async () => {
     if (confirm("Are you sure you want to remove your Account?")) {
@@ -110,9 +120,14 @@ export default function SettingsPage() {
               Update
             </button>
           </form>
-          <Link href="/Auth/ChangePassword">
-            <p id={styles.center}>CHANGE PASSWORD</p>
-          </Link>
+          <button onClick={openModal} className={styles.delButton}>
+            CHANGE PASSWORD
+          </button>
+          <Modal
+            show={isModalOpen}
+            onClose={closeModal}
+            currentUser={currentUser}
+          />
 
           <button className={styles.delButton} onClick={deleteHandler}>
             DELETE ACCOUNT
