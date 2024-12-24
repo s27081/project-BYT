@@ -19,8 +19,6 @@ export default function TasksNavBar({ slug }) {
       </div>
       {taskList.map((task) => (
         <div key={task.id} className={styles.taskCards}>
-          {console.log(`/dashboard/Tasks/${slug}`)}
-
           <Link href={`/dashboard/Tasks/${task.id}`}>
             <p
               id={

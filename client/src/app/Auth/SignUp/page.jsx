@@ -36,13 +36,7 @@ export default function SignUp() {
       <div className={styles.formContainer}>
         <form onSubmit={onSubmit}>
           <div className={styles.inputBox}>
-            <FaUser
-              style={{
-                color: "#FFFFFF",
-                fontSize: "24px",
-                transform: "translateY(40px)",
-              }}
-            />
+            <FaUser className={styles.icon} />
             <input
               type="text"
               placeholder="email"
@@ -53,13 +47,7 @@ export default function SignUp() {
           </div>
 
           <div className={styles.inputBox}>
-            <FaLock
-              style={{
-                color: "#FFFFFF",
-                fontSize: "24px",
-                transform: "translateY(40px)",
-              }}
-            />
+            <FaLock className={styles.icon} />
             <input
               type="password"
               placeholder="Password"
@@ -69,13 +57,7 @@ export default function SignUp() {
             />
           </div>
           <div className={styles.inputBox}>
-            <FaLock
-              style={{
-                color: "#FFFFFF",
-                fontSize: "24px",
-                transform: "translateY(40px)",
-              }}
-            />
+            <FaLock className={styles.icon} />
             <input
               type="password"
               placeholder="Repeat Password"

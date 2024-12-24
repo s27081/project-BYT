@@ -20,7 +20,6 @@ export default function SignIn() {
   const onSubmit = async (event) => {
     event.preventDefault();
     const response = await SignInForm(Data);
-    console.log(response);
     if (response.success) {
       router.push("/dashboard");
     } else {
@@ -35,13 +34,7 @@ export default function SignIn() {
       <div className={styles.formContainer}>
         <form onSubmit={onSubmit}>
           <div className={styles.inputBox}>
-            <FaUser
-              style={{
-                color: "#FFFFFF",
-                fontSize: "24px",
-                transform: "translateY(40px)",
-              }}
-            />
+            <FaUser className={styles.icon} />
             <input
               type="text"
               placeholder="email"
@@ -52,13 +45,7 @@ export default function SignIn() {
           </div>
 
           <div className={styles.inputBox}>
-            <FaLock
-              style={{
-                color: "#FFFFFF",
-                fontSize: "24px",
-                transform: "translateY(40px)",
-              }}
-            />
+            <FaLock className={styles.icon} />
             <input
               type="password"
               placeholder="password"

@@ -17,42 +17,6 @@
   left: 0;
   background: linear-gradient(0deg, #735bb6 0%, #d298c6 100%);
 }
-
-.circlesContainer {
-  position: absolute;
-  width: 1704px;
-  height: 1396px;
-  top: -125px;
-  left: -259px;
-}
-
-.largeCircle {
-  width: 724px;
-  height: 724px;
-  position: absolute;
-  top: 672px;
-  background: #735bb6;
-  border-radius: 50%;
-  opacity: 0.5;
-}
-
-.smallCircle {
-  width: 438px;
-  height: 438px;
-  position: absolute;
-  top: 0;
-  left: 130px;
-  background: #c57ba0;
-  border-radius: 50%;
-  opacity: 0.5;
-}
-
-.svgContainer {
-  position: absolute;
-  top: 120px;
-  left: 1340px;
-}
-
 .formContainer {
   width: 300px;
   height: 270px;
@@ -143,4 +107,10 @@
   position: absolute;
   top: 20%;
   left: 45%;
+}
+
+.icon {
+  color: #ffffff;
+  font-size: 24px;
+  transform: translateY(40px);
 }
