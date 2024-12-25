@@ -7,12 +7,11 @@ const url = process.env.NEXT_PUBLIC_SIGNINURL;
 export async function SignInForm(FormData) {
   const email = FormData.email;
   const password = FormData.password;
-  console.log(url);
   if (!url) {
     throw new Error("SIGNINURL is undefined.");
   }
   try {
-    await axios.post(
+    const response = await axios.post(
       url,
       {
         email,
@@ -22,11 +21,16 @@ export async function SignInForm(FormData) {
         withCredentials: true,
       }
     );
-
-    return { success: true };
+    return { success: true, data: response.data };
   } catch (error) {
-    console.error("Błąd logowania:");
+    if (axios.isAxiosError(error)) {
+      const serverErrors = error.response?.data?.errors || null;
+      return {
+        success: false,
+        errors: serverErrors || "An unexpected error has occurred.",
+      };
+    }
 
-    return { success: false };
+    return { success: false, errors: "Unkown error has occurred." };
   }
 }
