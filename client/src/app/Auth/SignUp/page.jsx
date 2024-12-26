@@ -14,19 +14,34 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
+  const [errors, setErrors] = useState({ email: [], password: [] });
   const router = useRouter();
 
   const Data = { email, password, repeatedPassword };
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    setErrors({ email: [], password: [] });
+
     const response = await SignUpForm(Data);
-    console.log(response);
+    const newErrors = { email: [], password: [] };
     if (response.success) {
       router.push("/dashboard");
     } else {
-      router.push("/auth/SignUp");
-      console.error("Rejestracja nie powiodła się:");
+      if (Array.isArray(response.errors)) {
+        response.errors.forEach((err) => {
+          if (err.field === "email") {
+            newErrors.email.push(err.message);
+          }
+          if (err.field === "password") {
+            newErrors.password.push(err.message);
+          }
+        });
+        setErrors(newErrors);
+      } else {
+        newErrors.password.push("Passwords are not the same");
+        setErrors(newErrors);
+      }
     }
   };
 
@@ -44,6 +59,15 @@ export default function SignUp() {
               onChange={(e) => setEmail(e.target.value)}
               className={styles.inputField}
             />
+            {errors.email.length > 0 && (
+              <div className={styles.errorText}>
+                {errors.email.map((error, index) => (
+                  <div key={`email-error-${index}`}>
+                    <p>{error}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className={styles.inputBox}>
@@ -65,18 +89,26 @@ export default function SignUp() {
               onChange={(e) => setRepeatedPassword(e.target.value)}
               className={styles.inputField}
             />
+            {errors.password.length > 0 && (
+              <div className={styles.errorText}>
+                {errors.password.map((error, index) => (
+                  <div key={`password-error-${index}`}>
+                    <p>{error}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <button type="submit" className={styles.submitButton}>
             REGISTER
           </button>
-        </form>
+        </form>{" "}
+        <Link href="/Auth/SignIn">
+          <div className={styles.registerText}>Sign IN</div>
+        </Link>
       </div>
-      <Link href="/Auth/SignIn">
-        <div className={styles.registerText} style={{ top: "68%" }}>
-          Sign IN
-        </div>
-      </Link>
+
       <Link href="/">
         <Image
           className={styles.logoImage}

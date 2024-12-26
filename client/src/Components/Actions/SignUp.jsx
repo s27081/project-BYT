@@ -13,20 +13,30 @@ export async function SignUpForm(FormData) {
     if (!url) {
       throw new Error("SIGNUPURL is undefined.");
     }
-    console.log(url);
-    await axios.post(
-      url,
-      {
-        email,
-        password,
-      },
-      {
-        withCredentials: true,
+    try {
+      const response = await axios.post(
+        url,
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      return { success: true, data: response.data };
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const serverErrors = error.response?.data?.errors || null;
+        return {
+          success: false,
+          errors: serverErrors || "An unexpected error has occurred.",
+        };
       }
-    );
-    return { success: true };
-  }
-  console.log(email);
 
-  return { success: false };
+      return { success: false, errors: "Unkown error has occurred." };
+    }
+  }
+
+  return { success: false, errors: "Password are not same." };
 }
