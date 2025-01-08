@@ -7,7 +7,7 @@ services:
             DATABASE_URL: postgresql://postgres:${POSTGRES_PWD}@db:5432/appDB
         restart: always
         ports:
-            - 801:801
+            - 80:80
         volumes:
             - ./backend/FastAPI/app:/code/app
         networks:
