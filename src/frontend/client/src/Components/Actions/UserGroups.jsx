@@ -1,8 +1,11 @@
-"use Server";
+"use server";
 
 import axios from "axios";
+import getConfig from 'next/config';
 
-const url = process.env.NEXT_PUBLIC_SHOWUSERGROUP;
+const {serverRuntimeConfig, publicRuntimeConfig } = getConfig();
+
+const url = serverRuntimeConfig.showUserGroupUrl || publicRuntimeConfig.showUserGroupUrl;
 
 export async function fetchUserGroups(currentUser) {
   if (!url) {

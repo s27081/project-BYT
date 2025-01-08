@@ -1,8 +1,11 @@
-"use Server";
+"use server";
 
 import axios from "axios";
+import getConfig from 'next/config';
 
-const url = process.env.NEXT_PUBLIC_SHOWUSERSINGROUP;
+const {serverRuntimeConfig, publicRuntimeConfig } = getConfig();
+
+const url = serverRuntimeConfig.showUsersInGroup || publicRuntimeConfig.showUsersInGroup
 
 export async function fetchUsersInGroup(joinCode) {
   if (!url) {

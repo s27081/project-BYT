@@ -12,6 +12,7 @@ import Background from "../../../../Components/Background";
 import classes from "../../../../styles/ClassesPage.module.css";
 import { fetchUserGroups } from "../../../../Components/Actions/UserGroups";
 import { fetchUsersInGroup } from "../../../../Components/Actions/UsersInGroup";
+import { deleteUserFromGroup } from "../../../../Components/Actions/deleteUserFromGroup";
 
 export default function Dashboard() {
   const pathname = usePathname();
@@ -96,6 +97,41 @@ export default function Dashboard() {
               <div key={user.user_id} className={classes.UserItem}>
                 <p>User ID: {user.user_id}</p>
                 <p>Role: {user.role}</p>
+
+                {currentUser.id === user.admin_id && user.role !== "admin" && (
+                  <button
+                    className={classes.delButton}
+                    onClick={() => {
+                      const group = groups.find(
+                        (g) => g.join_code === joinCode
+                      );
+                      if (!group) {
+                        alert("Group not found");
+                        return;
+                      }
+                      if (
+                        confirm("Are you sure you want to remove this user?")
+                      ) {
+                        deleteUserFromGroup(user.user_id, group.group_id).then(
+                          (success) => {
+                            if (success) {
+                              alert("User removed successfully");
+                              setUsers((prevUsers) =>
+                                prevUsers.filter(
+                                  (u) => u.user_id !== user.user_id
+                                )
+                              );
+                            } else {
+                              alert("Failed to remove user");
+                            }
+                          }
+                        );
+                      }
+                    }}
+                  >
+                    Delete
+                  </button>
+                )}
               </div>
             ))}
         </div>

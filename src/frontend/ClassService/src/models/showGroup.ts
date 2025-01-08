@@ -52,3 +52,19 @@ export const getUsersInGroup = async (join_code: string): Promise<any[]> => {
     throw new Error("Database query failed");
   }
 };
+export const deleteUserFromGroup = async (
+  user_id: number,
+  group_id: number
+): Promise<void> => {
+  const query = `
+  DELETE FROM GroupMembers
+  WHERE user_id = $1 AND group_id = $2;
+`;
+  const values = [user_id, group_id];
+
+  try {
+    await pool.query(query, values);
+  } catch (error) {
+    throw new Error("Database query failed");
+  }
+};

@@ -1,8 +1,9 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import { body, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 
 import { RequestValidationError } from "../errors/request-validation-error";
+import { BadRequestError } from "../errors/bad-request-error";
 import { addUser, findUserByEmail } from "../models/user";
 
 const router = express.Router();
@@ -29,11 +30,11 @@ router.post(
       .matches(/[!@#$%^&*]/)
       .withMessage("Must contain at least one special character"),
   ],
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      throw new RequestValidationError(errors.array());
+      return next(new RequestValidationError(errors.array()));
     }
 
     const { email, password } = req.body;
@@ -41,7 +42,7 @@ router.post(
     const existingUser = await findUserByEmail(email);
     if (existingUser !== null) {
       console.log("Email in use");
-      res.status(400).send("Bad Request Error");
+      return next(new BadRequestError("Choose diffrent Email"));
     } else {
       const user = await addUser({ email, password });
       //Generate JWT

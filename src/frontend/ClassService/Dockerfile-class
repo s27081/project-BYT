@@ -1,10 +1,10 @@
 FROM node:23-alpine3.19
 
-EXPOSE 3001
+EXPOSE 3002
 
-WORKDIR /auth
+WORKDIR /class
 
-COPY . /auth
+COPY . /class
 
 RUN npm install
 

@@ -13,19 +13,33 @@ import Background from "../../../Components/Background";
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({ email: [], password: [] });
   const router = useRouter();
 
   const Data = { email, password };
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    setErrors({ email: [], password: [] });
+
     const response = await SignInForm(Data);
-    console.log(response);
     if (response.success) {
       router.push("/dashboard");
     } else {
-      router.push("/Auth/SignIn");
-      console.error("Logownie nie powiodło się:");
+      if (Array.isArray(response.errors)) {
+        const newErrors = { email: [], password: [] };
+        response.errors.forEach((err) => {
+          if (err.field === "email") {
+            newErrors.email.push(err.message);
+          }
+          if (err.field === "password") {
+            newErrors.password.push(err.message);
+          }
+        });
+        setErrors(newErrors);
+      } else {
+        console.error("Unexpected error:", response.errors);
+      }
     }
   };
 
@@ -35,13 +49,7 @@ export default function SignIn() {
       <div className={styles.formContainer}>
         <form onSubmit={onSubmit}>
           <div className={styles.inputBox}>
-            <FaUser
-              style={{
-                color: "#FFFFFF",
-                fontSize: "24px",
-                transform: "translateY(40px)",
-              }}
-            />
+            <FaUser className={styles.icon} />
             <input
               type="text"
               placeholder="email"
@@ -49,16 +57,19 @@ export default function SignIn() {
               onChange={(e) => setEmail(e.target.value)}
               className={styles.inputField}
             />
+            {errors.email.length > 0 && (
+              <div className={styles.errorText}>
+                {errors.email.map((error, index) => (
+                  <div key={`email-error-${index}`}>
+                    <p>{error}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className={styles.inputBox}>
-            <FaLock
-              style={{
-                color: "#FFFFFF",
-                fontSize: "24px",
-                transform: "translateY(40px)",
-              }}
-            />
+            <FaLock className={styles.icon} />
             <input
               type="password"
               placeholder="password"
@@ -66,16 +77,26 @@ export default function SignIn() {
               onChange={(e) => setPassword(e.target.value)}
               className={styles.inputField}
             />
+            {errors.password.length > 0 && (
+              <div className={styles.errorText}>
+                {errors.password.map((error, index) => (
+                  <div key={`password-error-${index}`}>
+                    <p>{error}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <button type="submit" className={styles.submitButton}>
             login
           </button>
+          <Link href="/Auth/SignUp">
+            <div className={styles.registerText}>Sign Up</div>
+          </Link>
         </form>
       </div>
-      <Link href="/Auth/SignUp">
-        <div className={styles.registerText}>Sign Up</div>
-      </Link>
+
       <Link href="/">
         <Image
           className={styles.logoImage}

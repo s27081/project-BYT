@@ -1,8 +1,14 @@
 "use server";
 
 import axios from "axios";
+import getConfig from 'next/config';
 
-const url = process.env.NEXT_PUBLIC_SIGNUPURL;
+const {serverRuntimeConfig, publicRuntimeConfig } = getConfig();
+
+const url = serverRuntimeConfig.signUpUrl || publicRuntimeConfig.signUpUrl;
+console.log("server "+ serverRuntimeConfig.signUpUrl)
+console.log("client" + publicRuntimeConfig.signUpUrl)
+console.log(url);
 
 export async function SignUpForm(FormData) {
   const email = FormData.email;
@@ -13,20 +19,34 @@ export async function SignUpForm(FormData) {
     if (!url) {
       throw new Error("SIGNUPURL is undefined.");
     }
-    console.log(url);
-    await axios.post(
-      url,
-      {
-        email,
-        password,
-      },
-      {
-        withCredentials: true,
-      }
-    );
-    return { success: true };
-  }
-  console.log(email);
+    try {
 
-  return { success: false };
+      const response = await axios.post(
+        url,
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      return { success: true, data: response.data };
+    } catch (error) {
+      console.log(error)
+      if (axios.isAxiosError(error)) {
+        const serverErrors = error.response?.data?.errors || null;
+        console.log(serverErrors);
+        
+        return {
+          success: false,
+          errors: serverErrors || "An unexpected error has occurred.",
+        };
+      }
+
+      return { success: false, errors: "Unkown error has occurred." };
+    }
+  }
+
+  return { success: false, errors: "Password are not same." };
 }
