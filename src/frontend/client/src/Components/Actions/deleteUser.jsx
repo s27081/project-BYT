@@ -1,8 +1,11 @@
 "use server";
 
 import axios from "axios";
+import getConfig from 'next/config';
 
-const url = process.env.NEXT_PUBLIC_DELETEUSER;
+const {serverRuntimeConfig, publicRuntimeConfig } = getConfig();
+
+const url = serverRuntimeConfig.deleteUser || publicRuntimeConfig.deleteUser;
 
 export async function deleteUser(currentUser) {
   try {
