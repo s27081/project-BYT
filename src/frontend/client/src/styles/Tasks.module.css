@@ -1,0 +1,15 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 10fr;
+  gap: 50px;
+}
+.taskContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  height: fit-content;
+  justify-content: center;
+  gap: 100px;
+  top: 200px;
+}

@@ -1,0 +1,12 @@
+FROM node:23-alpine3.19
+
+EXPOSE 3002
+
+WORKDIR /class
+
+COPY . /class
+
+RUN npm install
+
+CMD ["npm","start"]
+
