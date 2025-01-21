@@ -20,6 +20,10 @@ export default function ExercisePage({ params }) {
   );
 
   const slugNumber = parseInt(slug, 10);
+  console.log(slugNumber);
+  console.log(slug);
+  
+  
   if (isNaN(slugNumber) || slugNumber <= 0 || slugNumber >= 21) {
     throw new Error("Page Not Fund");
   }
@@ -29,9 +33,13 @@ export default function ExercisePage({ params }) {
       setOutput("User not authenticated");
       return;
     }
-
+    console.log("user" + currentUser.id);
+    console.log("slug" + slug);
+    console.log("code" + code);
+    
+    
     try {
-      const response = await fetch(`${process.env.NEXT_TEST_ENV_API_URL}`, {
+      const response = await fetch("http://localhost:80/execute_code", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
