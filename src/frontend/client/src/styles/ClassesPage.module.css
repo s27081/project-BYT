@@ -1,0 +1,140 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 0;
+  left: 14vw;
+  background-color: transparent;
+  width: 86vw;
+  height: 100%;
+  gap: 5%;
+}
+.YourGroups {
+  position: relative;
+  top: 5%;
+  left: 10%;
+  width: 20vw;
+  height: 90%;
+  background: linear-gradient(180deg, #d298c6 0%, #c57ca1 100%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 25px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+.YourGroups p {
+  width: 100%;
+  height: 5vh;
+  color: white;
+  text-align: center;
+  align-items: center;
+  font-size: 25px;
+  border-bottom: 1px solid white;
+}
+.MembersDescription {
+  position: relative;
+  top: 5%;
+  left: 10%;
+  width: 40vw;
+  height: 90%;
+  background: linear-gradient(180deg, #d298c6 0%, #c57ca1 100%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 25px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+.descriptionContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  height: 8vh;
+  color: white;
+  font-size: 25px;
+  border-bottom: 1px solid white;
+}
+.descriptionContainer p {
+  margin-top: 1vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#bordered {
+  height: 6.5vh;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
+}
+.YourGroups a {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+#plusIcon {
+  display: flex;
+  width: 50px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #54406f 0%, #985fa3 100%);
+  opacity: 0.8;
+  border-radius: 25px;
+}
+.icon {
+  color: white;
+  font-size: 24px;
+}
+.icon:hover {
+  transition: ease 0.5s;
+  color: aquamarine;
+}
+.GroupList {
+  display: flex;
+  flex-direction: column;
+}
+.GroupContainer {
+  display: flex;
+  flex-direction: row;
+  background: linear-gradient(90deg, #6f539361 30%, #985fa349 100%);
+  border-radius: 50px;
+  margin-bottom: 30px;
+}
+.GroupContainer p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  font-size: 20px;
+}
+.GroupContainer {
+  text-decoration: none;
+}
+#ChangedBackground {
+  background: linear-gradient(90deg, #6f5393ea 10%, #985fa3d1 100%);
+}
+.UserItem {
+  color: white;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  font-size: 24px;
+  width: 100%;
+  height: 50px;
+  margin: 0;
+  border-bottom: 1px solid white;
+}
+.UserItem p {
+  text-align: center;
+}
+.delButton {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-radius: 25px;
+  font-size: 24px;
+  background: linear-gradient(180deg, #69375f 0%, #e25fa1 100%);
+  border: 0;
+  color: white;
+}
+.delButton:hover {
+  color: rgb(55, 186, 143);
+}
