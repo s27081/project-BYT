@@ -1,11 +1,13 @@
 "use server";
 
 import axios from "axios";
+
 import getConfig from 'next/config';
 
 const {serverRuntimeConfig, publicRuntimeConfig } = getConfig();
 
 const url = serverRuntimeConfig.changePassword  || publicRuntimeConfig.changePassword
+
 
 export async function ChangePassword(FormData) {
   const oldPassword = FormData.oldPassword;

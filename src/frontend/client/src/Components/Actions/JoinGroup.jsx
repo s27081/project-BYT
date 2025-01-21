@@ -7,6 +7,7 @@ const {serverRuntimeConfig, publicRuntimeConfig } = getConfig();
 
 const url = serverRuntimeConfig.joinGroupUrl || publicRuntimeConfig.joinGroupUrl;
 
+
 export async function JoinGroupForm(FormData) {
   const currentUser = FormData.currentUser;
   const join_code = FormData.JoinCode;

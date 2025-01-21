@@ -12,6 +12,7 @@ module.exports = {
       deleteUser: process.env.NEXT_SERVER_DELETEUSER,
       singOutUrl: process.env.NEXT_SERVER_SIGNOUTURL
       
+
   },
   publicRuntimeConfig: {
       signInUrl: process.env.NEXT_PUBLIC_SIGNINURL,

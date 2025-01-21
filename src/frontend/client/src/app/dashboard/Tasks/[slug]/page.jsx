@@ -5,6 +5,7 @@ import Editor from "@monaco-editor/react";
 import { useState } from "react";
 import useCurrentUser from "../../../../Components/Actions/useCurrentUser";
 
+
 import taskList from "../../../../Components/TasksList";
 import styles from "../../../../styles/TaskCompiler.module.css";
 import Background from "../../../../Components/Background";
@@ -13,6 +14,7 @@ import TasksNavBar from "../../../../Components/TasksNavBar";
 export default function ExercisePage({ params }) {
   const { slug } = use(params);
   const { loading, currentUser } = useCurrentUser();
+
   const [code, setCode] = useState("");
   const [output, setOutput] = useState("");
   const filteredTasks = taskList.filter(
@@ -20,23 +22,21 @@ export default function ExercisePage({ params }) {
   );
 
   const slugNumber = parseInt(slug, 10);
+
   console.log(slugNumber);
   console.log(slug);
   
-  
+
   if (isNaN(slugNumber) || slugNumber <= 0 || slugNumber >= 21) {
     throw new Error("Page Not Fund");
   }
 
   const runCode = async () => {
+
     if (loading || !currentUser) {
       setOutput("User not authenticated");
       return;
-    }
-    console.log("user" + currentUser.id);
-    console.log("slug" + slug);
-    console.log("code" + code);
-    
+    }    
     
     try {
       const response = await fetch("http://localhost:80/execute_code", {
@@ -60,6 +60,7 @@ export default function ExercisePage({ params }) {
     } catch (error) {
       setOutput(`Error: ${error.message}`);
     }
+
   };
 
   return (
@@ -100,3 +101,4 @@ export default function ExercisePage({ params }) {
     </>
   );
 }
+

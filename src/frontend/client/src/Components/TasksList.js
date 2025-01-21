@@ -3,7 +3,9 @@ const taskList = [
     id: 1,
     name: "Task 1",
     description:
+
       "Write a function `sum_numbers(a, b)` that takes two numbers as arguments and returns their sum.",
+
     difficulty: "easy",
   },
   {
@@ -11,6 +13,7 @@ const taskList = [
     name: "Task 2",
     description:
       "Write a function `is_even(n)` that takes an integer and returns `True` if the number is even or `False` otherwise.",
+
     difficulty: "easy",
   },
   {
@@ -18,6 +21,7 @@ const taskList = [
     name: "Task 3",
     description:
       "Write a function `numbers that returns an array with numbers from 1 to 10.",
+
     difficulty: "easy",
   },
   {
@@ -137,6 +141,7 @@ const taskList = [
     name: "Task 20",
     description:
       "Implement a function `rle_compression(string)` that applies the run-length encoding (RLE) compression algorithm. The function should take a string and return its compressed version, e.g., `aaabbbbcc` should be converted to `a3b4c2`.",
+
     difficulty: "hard",
   },
 ];
