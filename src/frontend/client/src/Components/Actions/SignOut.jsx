@@ -2,7 +2,12 @@
 
 import axios from "axios";
 
-const url = process.env.NEXT_PUBLIC_SIGNOUTURL;
+import getConfig from 'next/config';
+
+const {serverRuntimeConfig, publicRuntimeConfig } = getConfig();
+
+const url = serverRuntimeConfig.singOutUrl || publicRuntimeConfig.singOutUrl;
+
 
 export async function SignOut() {
   if (!url) {

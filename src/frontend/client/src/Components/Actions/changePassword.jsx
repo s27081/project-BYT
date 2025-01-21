@@ -2,7 +2,12 @@
 
 import axios from "axios";
 
-const url = process.env.NEXT_PUBLIC_CHANGEPASSWORD;
+import getConfig from 'next/config';
+
+const {serverRuntimeConfig, publicRuntimeConfig } = getConfig();
+
+const url = serverRuntimeConfig.changePassword  || publicRuntimeConfig.changePassword
+
 
 export async function ChangePassword(FormData) {
   const oldPassword = FormData.oldPassword;
