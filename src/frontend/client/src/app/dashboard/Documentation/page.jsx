@@ -12,40 +12,40 @@ export default function ExercisePage() {
       <NavBar />
       <div className={styles.DocContainer}>
         <div id={styles.ParagraphContainer}>
-          <p>Syntax</p>
+          <p><a target="_blank" href="https://www.w3schools.com/python/python_syntax.asp">Syntax</a></p>
         </div>
         <div id={styles.ParagraphContainer}>
-          <p>Values</p>
+          <p><a target="_blank" href="https://www.w3schools.com/python/python_variables.asp">Variables</a></p>
         </div>
         <div id={styles.ParagraphContainer}>
-          <p>Data Types</p>
+          <p><a target="_blank" href="https://www.w3schools.com/python/python_datatypes.asp">Data Types</a></p>
         </div>
         <div id={styles.ParagraphContainer}>
-          <p>Strings</p>
+          <p><a target="_blank" href="https://www.w3schools.com/python/python_strings.asp">Strings</a></p>
         </div>
         <div id={styles.ParagraphContainer}>
-          <p>Operands</p>
+          <p><a target="_blank" href="https://www.w3schools.com/python/python_operators.asp">Operators</a></p>
         </div>
         <div id={styles.ParagraphContainer}>
-          <p>Arrays</p>
+          <p><a target="_blank" href="https://www.w3schools.com/python/python_arrays.asp">Arrays</a></p>
         </div>
         <div id={styles.ParagraphContainer}>
-          <p>Set's</p>
+          <p><a target="_blank" href="https://www.w3schools.com/python/python_sets.asp">Sets</a></p>
         </div>
         <div id={styles.ParagraphContainer}>
-          <p>if, elif, else</p>
+          <p><a target="_blank" href="https://www.w3schools.com/python/python_conditions.asp">Conditions</a></p>
         </div>
         <div id={styles.ParagraphContainer}>
-          <p>while</p>
+          <p><a target="_blank" href="https://www.w3schools.com/python/python_for_loops.asp">For loop</a></p>
         </div>
         <div id={styles.ParagraphContainer}>
-          <p>for</p>
+          <p><a target="_blank" href="https://www.w3schools.com/python/python_while_loops.asp">While loop</a></p>
         </div>
         <div id={styles.ParagraphContainer}>
-          <p>functions</p>
+          <p><a target="_blank" href="https://www.w3schools.com/python/python_functions.asp">Functions</a></p>
         </div>
         <div id={styles.ParagraphContainer}>
-          <p>classes</p>
+          <p><a target="_blank" href="https://www.w3schools.com/python/python_classes.asp">Classes</a></p>
         </div>
       </div>
     </>
